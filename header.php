@@ -24,6 +24,3 @@
         <div class="line"><hr></div>
         <a class="btn_fb" target="_blank" href="https://www.facebook.com/sacsaentis/"><img src="<?php bloginfo('template_directory'); ?>/images/icon_fb.png"></a>
     </div>
-
-    <div id="content_wrapper">
-        <div id="content">
