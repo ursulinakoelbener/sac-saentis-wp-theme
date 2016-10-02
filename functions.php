@@ -20,6 +20,30 @@ function sacsaentis_scripts_styles() {
 add_action( 'wp_enqueue_scripts', 'sacsaentis_scripts_styles' );
 
 
+function sacsaentis_create_post_type() {
+    register_post_type( 'sac_tourenbericht',
+        array(
+            'labels' => array(
+                'name' => 'Tourenberichte',
+                'singular_name' => 'Tourenbericht'
+            ),
+            'public' => true,
+            'has_archive' => true,
+            'rewrite' => array('slug' => 'tourenberichte'),
+            'menu_position' => 5,
+            'menu_icon' => 'dashicons-admin-page',
+        )
+    );
+}
+add_action( 'init', 'sacsaentis_create_post_type' );
+
+
+function add_my_post_types_to_query( $query ) {
+    if ( is_home() && $query->is_main_query() )
+        $query->set( 'post_type', array( 'post', 'sac_tourenbericht' ) );
+    return $query;
+}
+add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
 /**
  * Displays the post title
  *
