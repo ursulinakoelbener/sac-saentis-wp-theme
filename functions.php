@@ -44,6 +44,40 @@ function add_my_post_types_to_query( $query ) {
     return $query;
 }
 add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
+
+
+include_once(ABSPATH.WPINC.'/rss.php');
+function droptours_rss( $url, $num_items = -1 ) {
+    if ( $rss = fetch_rss( $url ) ) {
+        echo '<ul>';
+
+        if ( $num_items !== -1 ) {
+            $rss->items = array_slice( $rss->items, 0, $num_items );
+        }
+
+        foreach ( (array) $rss->items as $item ) {
+            printf(
+                '<li>
+                   <span class="date">%3$s</span>
+                   <span class="tour_name">%2$s</span>
+                   <span class="tour_kind">%4$s</span>
+                   <span class="icons">
+                     <a href="%1$s"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                   </span>
+                 </li>',
+                esc_url( $item['link'] ),
+                esc_html( $item['title'] ),
+                date( 'd.m.Y', date_timestamp_get(DateTime::createFromFormat(DateTime::ATOM, $item['droptours']['startdatum'])) ),
+                esc_html( $item['droptours']['aktivitaet'])
+            );
+        }
+
+        echo '</ul>';
+    } else {
+        _e( 'An error has occurred, which probably means the feed is down. Try again later.' );
+    }
+}
+
 /**
  * Displays the post title
  *
