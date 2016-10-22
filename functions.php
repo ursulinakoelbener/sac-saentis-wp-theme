@@ -9,12 +9,19 @@ function sacsaentis_menus() {
 add_action( 'after_setup_theme', 'sacsaentis_menus' );
 
 
-function sacsaentis_include_tourenberichte_on_homepage( $query ) {
-    if ( $query->is_home()  ) {
-        $query->set( 'post_type', array( 'post', 'sac_tourenbericht' ) );
-    }
+function sacsaentis_sidebars() {
+    register_sidebar( array(
+        'name'          => 'Sidebar 1',
+        'id'            => 'sidebar-1',
+        'before_widget' => '<div class="widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3 class="widget__title">',
+        'after_title'   => '</h3>',
+    ) );
 }
-add_action( 'pre_get_posts', 'sacsaentis_include_tourenberichte_on_homepage' );
+add_action( 'widgets_init', 'sacsaentis_sidebars' );
+
+
 /**
  * Adds the scripts and styles to the header
  */
@@ -25,25 +32,6 @@ function sacsaentis_scripts_styles() {
     wp_enqueue_style( 'sacsaentis-fonts', '//fonts.googleapis.com/css?family=Asap:400,700', array(), null );
 }
 add_action( 'wp_enqueue_scripts', 'sacsaentis_scripts_styles' );
-
-
-function sacsaentis_create_post_type() {
-    register_post_type( 'sac_tourenbericht',
-        array(
-            'labels' => array(
-                'name' => 'Tourenberichte',
-                'singular_name' => 'Tourenbericht'
-            ),
-            'public' => true,
-            'has_archive' => true,
-            'taxonomies' => array( 'category' ),
-            'rewrite' => array('slug' => 'tourenberichte'),
-            'menu_position' => 5,
-            'menu_icon' => 'dashicons-admin-page',
-        )
-    );
-}
-add_action( 'init', 'sacsaentis_create_post_type' );
 
 
 
