@@ -8,6 +8,13 @@ function sacsaentis_menus() {
 }
 add_action( 'after_setup_theme', 'sacsaentis_menus' );
 
+
+function sacsaentis_include_tourenberichte_on_homepage( $query ) {
+    if ( $query->is_home()  ) {
+        $query->set( 'post_type', array( 'post', 'sac_tourenbericht' ) );
+    }
+}
+add_action( 'pre_get_posts', 'sacsaentis_include_tourenberichte_on_homepage' );
 /**
  * Adds the scripts and styles to the header
  */
@@ -38,12 +45,6 @@ function sacsaentis_create_post_type() {
 add_action( 'init', 'sacsaentis_create_post_type' );
 
 
-function add_my_post_types_to_query( $query ) {
-    if ( is_home() && $query->is_main_query() )
-        $query->set( 'post_type', array( 'post', 'sac_tourenbericht' ) );
-    return $query;
-}
-add_action( 'pre_get_posts', 'add_my_post_types_to_query' );
 
 
 include_once(ABSPATH.WPINC.'/rss.php');
