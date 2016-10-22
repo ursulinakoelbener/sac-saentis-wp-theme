@@ -14,8 +14,6 @@
                 </article>
             <?php } ?>
         </main>
-        <aside class="content-sidebar">
-            <?php get_sidebar(); ?>
-        </aside>
+        <?php get_sidebar(); ?>
     </div>
 <?php get_footer(); ?>
