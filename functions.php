@@ -36,6 +36,7 @@ function sacsaentis_create_post_type() {
             ),
             'public' => true,
             'has_archive' => true,
+            'taxonomies' => array( 'category' ),
             'rewrite' => array('slug' => 'tourenberichte'),
             'menu_position' => 5,
             'menu_icon' => 'dashicons-admin-page',
