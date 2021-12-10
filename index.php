@@ -4,7 +4,7 @@
     <h2 class="frontpage-box__title">Berichte & News</h2>
     <ul>
         <?php
-        $args = array( 'numberposts' => '5', 'post_type' => 'post' );
+        $args = array( 'numberposts' => '10', 'post_type' => 'post' );
         $recent_posts = wp_get_recent_posts( $args );
         foreach( $recent_posts as $recent ){
             echo '<li><span class="news-box__date">' . get_the_date() . '</span><a class="news-box__link" href="' . get_permalink($recent["ID"]) . '">' . $recent["post_title"] . '</a></li> ';
